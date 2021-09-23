@@ -1,22 +1,22 @@
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Turnstile implements Runnable{
-    private Spectator specCount;
-    private int ID;
-    private BlockingQueue<Spectator> spectators = new ArrayBlockingQueue<>(1);
+    private final Spectator sharedCounter;
+    private static final AtomicInteger count = new AtomicInteger(0);
+    private final int ID;
+    private static Turnstile[] turnstiles;
 
-    public Turnstile(Spectator count){
-        this.specCount = count;
-        this.ID = ID++;
-        spectators.add(new Spectator());
+    public int getID() {
+        return ID;
     }
 
+    Turnstile(Spectator sharedCounter) {
+        this.sharedCounter = sharedCounter;
+        ID = count.incrementAndGet();
+    }
 
     @Override
     public void run() {
-        while (true){
-            
-        }
+        this.sharedCounter.incrementSpectators();
     }
 }
