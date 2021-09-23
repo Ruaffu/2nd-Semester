@@ -8,7 +8,6 @@ public class ClientHandler implements Runnable{
     Socket client;
     PrintWriter pw;
     Scanner sc;
-    Turnstile turnstile;
     Spectator spectator;
 
     public ClientHandler(Socket client) throws IOException {
